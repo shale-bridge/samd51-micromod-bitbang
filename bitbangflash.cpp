@@ -17,6 +17,7 @@
 
 #include "bitbangflash.h"
 
+
 bool BitBangFlash::begin(unsigned long CLK_Delay)
 {
 	delayUs = CLK_Delay;	// Only used to slow datalines for debugging
