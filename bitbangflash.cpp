@@ -9,7 +9,8 @@
  * off of the Adafruit SPIFlash library and "manually"
  * clocks and sends/receives data.
  * 
- * Estimated clock speeds are around ~1.429MHz from my testing.
+ * Estimated clock speeds are around ~1.429MHz. This can be doubled by removing
+ * the calls to delayMicroseconds(delayUs). delayUs is 0 by default.
  *
  *  ============================================================================
  */
