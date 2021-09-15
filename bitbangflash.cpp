@@ -30,8 +30,6 @@ bool BitBangFlash::begin(unsigned long CLK_Delay)
 	SET_HIGH(PORTB) = WP_ + HOLD_;
 
 	readCommand(SFLASH_CMD_READ_JEDEC_ID, jedec_id, 4);
-	// Serial.println(
-	// 	((uint32_t)jedec_id[0]) << 16 | jedec_id[1] << 8 | jedec_id[2], HEX);
 
 	while (readStatus() & 0x01);	// WIP (Write-in-progress) should be low.
 	while (readStatus2() & 0x80);	// The suspended write/erase bit should be low.
@@ -43,6 +41,11 @@ bool BitBangFlash::begin(unsigned long CLK_Delay)
 	waitUntilReady();
 
 	return true;
+}
+
+uint32_t BitBangFlash::getJEDECID(void) 
+{
+	return ((uint32_t)jedec_id[0]) << 16 | jedec_id[1] << 8 | jedec_id[2];
 }
 
 void BitBangFlash::waitUntilReady(void) 
