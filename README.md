@@ -8,7 +8,7 @@ so SPI is unavailable for use. This library replaces
 SPI calls with a bit-bang transfer routine, and is based
 on the Adafruit SPIFlash library.
 
-#### Transfer speed is ~1.429MHz. This can be doubled by removing the calls to delayMicroseconds(delayUs) between CLK changes. The delay shouldn't be used anyway.
+#### Transfer speed is ~1.429MHz. This can be doubled by removing the calls to delayMicroseconds(delayUs) between CLK changes. The delay is set to 0 by default, and shouldn't be used anyway.
 
 ### Available flash read/write functions
 - begin(): Initialize the chip and save the jedec-id.
