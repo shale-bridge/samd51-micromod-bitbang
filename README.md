@@ -16,7 +16,7 @@ on the Adafruit SPIFlash library.
 - read16(n): "" 16-bit ""
 - read32(n): "" 32-bit ""
 - writeBuffer(addr, *buff, len): Writes *buff to addr + len.
-- eraseChip(): Erases entire chip. Can take upwards of 40 seconds ( from W25Q128 datasheet).
+- eraseChip(): Erases entire chip. Can take 40-200 seconds (from W25Q128 datasheet).
 - eraseBlock(n): Erases a 64k block at blocknumber n.
 
 [TO DO]
