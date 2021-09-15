@@ -8,5 +8,7 @@ so SPI is unavailable for use. This library replaces
 SPI calls with a bit-bang transfer routine, and is based
 on the Adafruit SPIFlash library.
 
+#### Transfer speed is ~1.429MHz
+
 [TO DO]
 - Full compatibility with SPIFlash library not complete (missing functions).
