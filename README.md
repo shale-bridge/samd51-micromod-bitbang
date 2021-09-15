@@ -18,6 +18,7 @@ on the Adafruit SPIFlash library.
 - writeBuffer(addr, *buff, len): Writes *buff to addr + len.
 - eraseChip(): Erases entire chip. Can take 40-200 seconds (from W25Q128 datasheet).
 - eraseBlock(n): Erases a 64k block at blocknumber n.
+- getJEDECID(): Returns the JEDEC ID in the format (0xEF7018): Manufacturer ID(0xEF), Memory Type(0x70), Capacity(0x18)
 
 [TO DO]
 - Full compatibility with SPIFlash library not complete (missing functions).
