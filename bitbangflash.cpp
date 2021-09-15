@@ -213,7 +213,7 @@ bool BitBangFlash::runCommand(uint8_t command) {
 
 uint8_t BitBangFlash::transfer(uint8_t data)
 {
-	for (uint8_t bit = 0; bit < 8; bit++)
+	for (uint_fast8_t bit = 0; bit < 8; ++bit)
 	{
 		((data & 0x80) ? SET_HIGH(PORTA) : SET_LOW(PORTA)) = MOSI_;
 	  
