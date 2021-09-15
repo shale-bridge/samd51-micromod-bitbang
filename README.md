@@ -8,7 +8,7 @@ so SPI is unavailable for use. This library replaces
 SPI calls with a bit-bang transfer routine, and is based
 on the Adafruit SPIFlash library.
 
-#### Transfer speed is ~1.429MHz
+#### Transfer speed is ~1.429MHz. This can be doubled by removing the calls to delayMicroseconds(delayUs) between CLK changes. The delay is set to 0 by default, and shouldn't be used anyway.
 
 ### Available flash read/write functions
 - begin(): Initialize the chip and save the jedec-id.
@@ -18,6 +18,7 @@ on the Adafruit SPIFlash library.
 - writeBuffer(addr, *buff, len): Writes *buff to addr + len.
 - eraseChip(): Erases entire chip. Can take 40-200 seconds (from W25Q128 datasheet).
 - eraseBlock(n): Erases a 64k block at blocknumber n.
+- getJEDECID(): Returns the JEDEC ID in the format (0xEF7018): Manufacturer ID(0xEF), Memory Type(0x70), Capacity(0x18)
 
 [TO DO]
 - Full compatibility with SPIFlash library not complete (missing functions).
