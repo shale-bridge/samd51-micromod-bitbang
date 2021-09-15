@@ -78,25 +78,25 @@ public:
 	uint8_t _addr_len = 3;
 
 	bool begin(unsigned long CLK_Delay = 0);
-	void	WaitUntilReady(void);
-	uint8_t	ReadStatus(void);
-	uint8_t	ReadStatus2(void);
+	void	waitUntilReady(void);
+	uint8_t	readStatus(void);
+	uint8_t	readStatus2(void);
 	uint8_t	read8(uint32_t addr);
-	uint16_t	Read16(uint32_t addr);
-	uint32_t	Read32(uint32_t addr);
-	uint32_t	ReadBuffer(uint32_t addr, uint8_t* buffer, uint32_t len);
-	bool	ReadMemory(uint32_t addr, uint8_t* data, uint32_t len);
-	void	FillAddress(uint8_t* buffer, uint32_t addr);
-	bool	WriteMemory(uint32_t addr, uint8_t const* data, uint32_t len);
+	uint16_t	read16(uint32_t addr);
+	uint32_t	read32(uint32_t addr);
+	uint32_t	readBuffer(uint32_t addr, uint8_t* buffer, uint32_t len);
+	bool	readMemory(uint32_t addr, uint8_t* data, uint32_t len);
+	void	fillAddress(uint8_t* buffer, uint32_t addr);
+	bool	writeMemory(uint32_t addr, uint8_t const* data, uint32_t len);
 	uint32_t	writeBuffer(uint32_t addr, uint8_t const* buffer, uint32_t len);
-	bool	EraseChip(void);
+	bool	eraseChip(void);
 	bool	eraseBlock(uint32_t blockNum);
-	bool	EraseCommand(uint8_t command, uint32_t addr);
-	bool	WriteEnable(void);
-	bool	ReadCommand(uint8_t command, uint8_t* response, uint32_t len);
-	bool	RunCommand(uint8_t command);
-	uint8_t	Transfer(uint8_t data);
-	void	Transfer(void* buffer, size_t count);
+	bool	eraseCommand(uint8_t command, uint32_t addr);
+	bool	writeEnable(void);
+	bool	readCommand(uint8_t command, uint8_t* response, uint32_t len);
+	bool	runCommand(uint8_t command);
+	uint8_t	transfer(uint8_t data);
+	void	transfer(void* buffer, size_t count);
 
 private:
 };
