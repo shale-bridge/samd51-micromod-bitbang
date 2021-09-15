@@ -17,6 +17,7 @@
 
 #include <Arduino.h>
 
+
 enum {
 	SFLASH_CMD_READ = 0x03,      // Single Read
 	SFLASH_CMD_FAST_READ = 0x0B, // Fast Read
