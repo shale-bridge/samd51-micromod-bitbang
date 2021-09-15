@@ -17,7 +17,6 @@
 
 #include "bitbangflash.h"
 
-
 bool BitBangFlash::begin(unsigned long CLK_Delay)
 {
 	delayUs = CLK_Delay;	// Only used to slow datalines for debugging
@@ -34,8 +33,8 @@ bool BitBangFlash::begin(unsigned long CLK_Delay)
 	// Serial.println(
 	// 	((uint32_t)jedec_id[0]) << 16 | jedec_id[1] << 8 | jedec_id[2], HEX);
 
-	while (readStatus() & 0x01);
-	while (readStatus2() & 0x80);
+	while (readStatus() & 0x01);	// WIP (Write-in-progress) should be low.
+	while (readStatus2() & 0x80);	// The suspended write/erase bit should be low.
 
 	runCommand(SFLASH_CMD_ENABLE_RESET);
 	runCommand(SFLASH_CMD_RESET);

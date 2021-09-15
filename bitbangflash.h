@@ -17,7 +17,6 @@
 
 #include <Arduino.h>
 
-
 enum {
 	SFLASH_CMD_READ = 0x03,      // Single Read
 	SFLASH_CMD_FAST_READ = 0x0B, // Fast Read
@@ -87,9 +86,9 @@ public:
 	uint32_t	writeBuffer(uint32_t addr, uint8_t const* buffer, uint32_t len);
 	bool	eraseChip(void);
 	bool	eraseBlock(uint32_t blockNum);
-	bool	eraseCommand(uint8_t command, uint32_t addr);
 	
 	/* Internal functions */
+	bool	eraseCommand(uint8_t command, uint32_t addr);
 	void	waitUntilReady(void);
 	uint8_t	readStatus(void);
 	uint8_t	readStatus2(void);
