@@ -17,8 +17,7 @@ on the Adafruit SPIFlash library.
 - read32(n): "" 32-bit ""
 - writeBuffer(addr, *buff, len): Writes *buff to addr + len.
 - eraseChip(): Erases entire chip.
-- eraseBlock(n): Erases a 64k block at blocknumber n.
+- eraseSector(n): Erases a 4k sector at sectornumber n.
+- eraseBlock32(n): Erases a 32k block at blocknumber n.
+- eraseBlock64(n): Erases a 64k block at blocknumber n.
 - getJEDECID(): Returns the JEDEC ID in the format (0xEF7018): Manufacturer ID(0xEF), Memory Type(0x70), Capacity(0x18)
-
-[TO DO]
-- Full compatibility with SPIFlash library not complete (missing functions).
