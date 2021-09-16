@@ -125,7 +125,8 @@ bool BitBangFlash::readMemory(uint32_t addr, uint8_t* data, uint32_t len)
 
 void BitBangFlash::fillAddress(uint8_t* buf, uint32_t addr) 
 {
-	switch (_addr_len) {
+	switch (_addr_len) 
+	{
 	case 4:
 		*buf++ = (addr >> 24) & 0xFF;
 	case 3:
@@ -228,7 +229,8 @@ bool BitBangFlash::eraseCommand(uint8_t command, uint32_t addr)
 	return true;
 }
 
-bool BitBangFlash::writeEnable(void) {
+bool BitBangFlash::writeEnable(void) 
+{
 	return runCommand(SFLASH_CMD_WRITE_ENABLE);
 }
 
@@ -260,7 +262,7 @@ uint8_t BitBangFlash::transfer(uint8_t data)
 void BitBangFlash::transfer(void* buf, size_t count)
 {
 	uint8_t* buffer = reinterpret_cast<uint8_t*>(buf);
-	for (size_t i = 0; i < count; i++) 
+	for (size_t i = 0; i < count; ++i) 
 	{
 		*buffer = transfer(*buffer);
 		buffer++;
