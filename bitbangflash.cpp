@@ -56,7 +56,8 @@ void BitBangFlash::waitUntilReady(void)
 		yield();
 }
 
-bool BitBangFlash::readCommand(uint8_t command, uint8_t* response, uint32_t len) {
+bool BitBangFlash::readCommand(uint8_t command, uint8_t* response, uint32_t len) 
+{
 	SET_LOW(PORTA) = FCS_;
 	transfer(command);
 	while (len--)
@@ -65,29 +66,34 @@ bool BitBangFlash::readCommand(uint8_t command, uint8_t* response, uint32_t len)
 	return true;
 }
 
-uint8_t BitBangFlash::readStatus(void) {
+uint8_t BitBangFlash::readStatus(void) 
+{
 	uint8_t status;
 	readCommand(SFLASH_CMD_READ_STATUS, &status, 1);
 	return status;
 }
 
-uint8_t BitBangFlash::readStatus2(void) {
+uint8_t BitBangFlash::readStatus2(void) 
+{
 	uint8_t status;
 	readCommand(SFLASH_CMD_READ_STATUS2, &status, 1);
 	return status;
 }
 
-uint8_t BitBangFlash::read8(uint32_t addr) {
+uint8_t BitBangFlash::read8(uint32_t addr) 
+{
 	uint8_t ret;
 	return readBuffer(addr, &ret, sizeof(ret)) ? ret : 0xff;
 }
 
-uint16_t BitBangFlash::read16(uint32_t addr) {
+uint16_t BitBangFlash::read16(uint32_t addr) 
+{
 	uint16_t ret;
 	return readBuffer(addr, (uint8_t*)&ret, sizeof(ret)) ? ret : 0xffff;
 }
 
-uint32_t BitBangFlash::read32(uint32_t addr) {
+uint32_t BitBangFlash::read32(uint32_t addr) 
+{
 	uint32_t ret;
 	return readBuffer(addr, (uint8_t*)&ret, sizeof(ret)) ? ret : 0xffffffff;
 }
@@ -117,7 +123,8 @@ bool BitBangFlash::readMemory(uint32_t addr, uint8_t* data, uint32_t len)
 	return true;
 }
 
-void BitBangFlash::fillAddress(uint8_t* buf, uint32_t addr) {
+void BitBangFlash::fillAddress(uint8_t* buf, uint32_t addr) 
+{
 	switch (_addr_len) {
 	case 4:
 		*buf++ = (addr >> 24) & 0xFF;
@@ -130,7 +137,8 @@ void BitBangFlash::fillAddress(uint8_t* buf, uint32_t addr) {
 	}
 }
 
-bool BitBangFlash::writeMemory(uint32_t addr, uint8_t const* data, uint32_t len) {
+bool BitBangFlash::writeMemory(uint32_t addr, uint8_t const* data, uint32_t len) 
+{
 	SET_LOW(PORTA) = FCS_;
 
 	uint8_t cmd_with_addr[5] = { SFLASH_CMD_PAGE_PROGRAM };
@@ -179,15 +187,35 @@ bool BitBangFlash::eraseChip(void)
 	return ret;
 }
 
-bool BitBangFlash::eraseBlock(uint32_t blockNumber) {
+bool BitBangFlash::eraseSector(uint32_t sectorNumber)
+{
 	waitUntilReady();
 	writeEnable();
 
-	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK, blockNumber * SFLASH_BLOCK_SIZE);
+	bool const ret = eraseCommand(SFLASH_CMD_ERASE_SECTOR, sectorNumber * SFLASH_SECTOR_SIZE);
 	return ret;
 }
 
-bool BitBangFlash::eraseCommand(uint8_t command, uint32_t addr) {
+bool BitBangFlash::eraseBlock32(uint32_t blockNumber) 
+{
+	waitUntilReady();
+	writeEnable();
+
+	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK_32K, blockNumber * SFLASH_BLOCK_SIZE);
+	return ret;
+}
+
+bool BitBangFlash::eraseBlock64(uint32_t blockNumber) 
+{
+	waitUntilReady();
+	writeEnable();
+
+	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK_64K, blockNumber * SFLASH_BLOCK_SIZE);
+	return ret;
+}
+
+bool BitBangFlash::eraseCommand(uint8_t command, uint32_t addr) 
+{
 	SET_LOW(PORTA) = FCS_;
 
 	uint8_t cmd_with_addr[5] = { command };
@@ -204,7 +232,8 @@ bool BitBangFlash::writeEnable(void) {
 	return runCommand(SFLASH_CMD_WRITE_ENABLE);
 }
 
-bool BitBangFlash::runCommand(uint8_t command) {
+bool BitBangFlash::runCommand(uint8_t command) 
+{
 	SET_LOW(PORTA) = FCS_;
 	transfer(command);
 	SET_HIGH(PORTA) = FCS_;

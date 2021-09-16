@@ -41,7 +41,8 @@ enum {
 	SFLASH_CMD_WRITE_DISABLE = 0x04,
 
 	SFLASH_CMD_ERASE_SECTOR = 0x20,
-	SFLASH_CMD_ERASE_BLOCK = 0xD8,
+	SFLASH_CMD_ERASE_BLOCK_32K = 0x52,
+	SFLASH_CMD_ERASE_BLOCK_64K = 0xD8,
 	SFLASH_CMD_ERASE_CHIP = 0xC7,
 
 	SFLASH_CMD_4_BYTE_ADDR = 0xB7,
@@ -85,7 +86,9 @@ public:
 	uint32_t	read32(uint32_t addr);
 	uint32_t	writeBuffer(uint32_t addr, uint8_t const* buffer, uint32_t len);
 	bool	eraseChip(void);
-	bool	eraseBlock(uint32_t blockNum);
+	bool	eraseSector(uint32_t sectorNum);
+	bool	eraseBlock32(uint32_t blockNum);
+	bool	eraseBlock64(uint32_t blockNum);
 	uint32_t	getJEDECID(void);
 	
 	/* Internal functions */
