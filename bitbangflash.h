@@ -77,7 +77,7 @@ public:
 	unsigned long delayUs = 0;
 
 	uint8_t jedec_id[4];
-	uint8_t _addr_len = 3;
+	uint8_t _addr_len = 3;	// 24 bits (8 * 3)
 
 	/* User functions */
 	bool begin(unsigned long CLK_Delay = 0);

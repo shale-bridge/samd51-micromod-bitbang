@@ -113,7 +113,7 @@ bool BitBangFlash::readMemory(uint32_t addr, uint8_t* data, uint32_t len)
 	fillAddress(cmd_with_addr + 1, addr);
 
 	// Fast Read has 1 extra dummy byte
-	uint8_t const cmd_len =	1 + _addr_len + (SFLASH_CMD_FAST_READ == SFLASH_CMD_FAST_READ ? 1 : 0);
+	uint8_t const cmd_len =	1 + _addr_len + 1;
 
 	transfer(cmd_with_addr, cmd_len);
 	transfer(data, len);
@@ -125,17 +125,9 @@ bool BitBangFlash::readMemory(uint32_t addr, uint8_t* data, uint32_t len)
 
 void BitBangFlash::fillAddress(uint8_t* buf, uint32_t addr) 
 {
-	switch (_addr_len) 
-	{
-	case 4:
-		*buf++ = (addr >> 24) & 0xFF;
-	case 3:
-		*buf++ = (addr >> 16) & 0xFF;
-	case 2:
-	default:
-		*buf++ = (addr >> 8) & 0xFF;
-		*buf++ = addr & 0xFF;
-	}
+	*buf++ = (addr >> 16) & 0xFF;
+	*buf++ = (addr >> 8) & 0xFF;
+	*buf++ = addr & 0xFF;
 }
 
 bool BitBangFlash::writeMemory(uint32_t addr, uint8_t const* data, uint32_t len) 
