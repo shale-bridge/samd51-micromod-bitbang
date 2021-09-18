@@ -22,7 +22,7 @@ bool BitBangFlash::begin(unsigned long CLK_Delay)
 {
 	delayUs = CLK_Delay;	// Only used to slow datalines for debugging
 
-	PORT->Group[PORTA].PINCFG[g_APinDescription[49].ulPin].reg = (uint8_t)(PORT_PINCFG_INEN | PORT_PINCFG_PULLEN);
+	PORT->Group[PORTA].PINCFG[g_APinDescription[MISO_PIN_].ulPin].reg = (uint8_t)(PORT_PINCFG_INEN | PORT_PINCFG_PULLEN);
 	SET_INPUT(PORTA) = MISO_;
 	SET_HIGH(PORTA) = MISO_;	// Enable pullup
 
@@ -171,6 +171,7 @@ uint32_t BitBangFlash::writeBuffer(uint32_t address, uint8_t const* buffer, uint
 	return len;
 }
 
+/* Erase whole chip. NOTE: This can take up to 40 seconds or longer (W25Q128 datasheet) */
 bool BitBangFlash::eraseChip(void)
 {
 	waitUntilReady();
@@ -180,6 +181,7 @@ bool BitBangFlash::eraseChip(void)
 	return ret;
 }
 
+/* Erase 4k sector */
 bool BitBangFlash::eraseSector(uint32_t sectorNumber)
 {
 	waitUntilReady();
@@ -189,6 +191,7 @@ bool BitBangFlash::eraseSector(uint32_t sectorNumber)
 	return ret;
 }
 
+/* Erase 32k block */
 bool BitBangFlash::eraseBlock32(uint32_t blockNumber) 
 {
 	waitUntilReady();
@@ -198,6 +201,7 @@ bool BitBangFlash::eraseBlock32(uint32_t blockNumber)
 	return ret;
 }
 
+/* Erase 64k block */
 bool BitBangFlash::eraseBlock64(uint32_t blockNumber) 
 {
 	waitUntilReady();

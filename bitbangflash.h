@@ -49,7 +49,6 @@ enum {
 	SFLASH_CMD_3_BYTE_ADDR = 0xE9,
 };
 
-// Constant that is (mostly) true to all external flash devices
 enum {
     SFLASH_BLOCK_SIZE32 = 32 * 1024UL,
 	SFLASH_BLOCK_SIZE64 = 64 * 1024UL,
@@ -70,6 +69,7 @@ enum {
 #define FCS_	PORT_PA11
 #define	WP_		PORT_PB22
 #define HOLD_	PORT_PB23
+#define MISO_PIN_	49
 
 class BitBangFlash
 {
