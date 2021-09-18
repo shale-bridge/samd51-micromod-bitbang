@@ -194,7 +194,7 @@ bool BitBangFlash::eraseBlock32(uint32_t blockNumber)
 	waitUntilReady();
 	writeEnable();
 
-	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK_32K, blockNumber * SFLASH_BLOCK_SIZE);
+	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK_32K, blockNumber * SFLASH_BLOCK_SIZE32);
 	return ret;
 }
 
@@ -203,7 +203,7 @@ bool BitBangFlash::eraseBlock64(uint32_t blockNumber)
 	waitUntilReady();
 	writeEnable();
 
-	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK_64K, blockNumber * SFLASH_BLOCK_SIZE);
+	bool const ret = eraseCommand(SFLASH_CMD_ERASE_BLOCK_64K, blockNumber * SFLASH_BLOCK_SIZE64);
 	return ret;
 }
 

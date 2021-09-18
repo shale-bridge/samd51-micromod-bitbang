@@ -51,7 +51,8 @@ enum {
 
 // Constant that is (mostly) true to all external flash devices
 enum {
-	SFLASH_BLOCK_SIZE = 64 * 1024UL,
+    SFLASH_BLOCK_SIZE32 = 32 * 1024UL,
+	SFLASH_BLOCK_SIZE64 = 64 * 1024UL,
 	SFLASH_SECTOR_SIZE = 4 * 1024,
 	SFLASH_PAGE_SIZE = 256,
 };
