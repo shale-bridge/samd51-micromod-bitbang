@@ -18,7 +18,8 @@
 
 #include <Arduino.h>
 
-enum {
+enum FlashCommands 
+{
 	SFLASH_CMD_READ = 0x03,      // Single Read
 	SFLASH_CMD_FAST_READ = 0x0B, // Fast Read
 	SFLASH_CMD_QUAD_READ = 0x6B, // 1 line address, 4 line data
@@ -49,7 +50,8 @@ enum {
 	SFLASH_CMD_3_BYTE_ADDR = 0xE9,
 };
 
-enum {
+enum MemorySize 
+{
     SFLASH_BLOCK_SIZE32 = 32 * 1024UL,
 	SFLASH_BLOCK_SIZE64 = 64 * 1024UL,
 	SFLASH_SECTOR_SIZE = 4 * 1024,
