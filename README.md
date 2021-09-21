@@ -16,6 +16,7 @@ on the Adafruit SPIFlash library.
 - read16(n): "" 16-bit ""
 - read32(n): "" 32-bit ""
 - writeBuffer(addr, *buff, len): Writes *buff to addr + len.
+- getUsedMemory(): Searches for a chunk of 0xffffffff and returns used bytes. Only works if 0xffffffff isn't in the used data!
 - eraseChip(): Erases entire chip.
 - eraseSector(n): Erases a 4k sector at sectornumber n.
 - eraseBlock32(n): Erases a 32k block at blocknumber n.

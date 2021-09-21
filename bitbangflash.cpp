@@ -171,6 +171,23 @@ uint32_t BitBangFlash::writeBuffer(uint32_t address, uint8_t const* buffer, uint
 	return len;
 }
 
+/* 
+ * Returns the amount of contiguous memory that is currently used in bytes. 
+ * NOTE: This only works if there aren't any chunks of 0xffffffff in your
+ *	own data!
+ */
+uint32_t BitBangFlash::getUsedMemory(void)
+{
+	uint32_t bytes = 0;
+	uint32_t usedMemory;
+	for (uint_fast32_t i = 0; bytes != 0xffffffff; i++)
+	{
+		bytes = read32(i);
+		usedMemory = i;
+	}
+	return usedMemory;
+}
+
 /* Erase whole chip. NOTE: This can take up to 40 seconds or longer (W25Q128 datasheet) */
 bool BitBangFlash::eraseChip(void)
 {

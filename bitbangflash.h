@@ -77,13 +77,13 @@ class BitBangFlash
 {
 public:
 	// delay for clock being high
-	unsigned long delayUs = 0;
+	unsigned long	delayUs = 0;
 
-	uint8_t jedec_id[4];
-	uint8_t _addr_len = 3;	// 24 bits (8 * 3)
+	uint8_t	jedec_id[4];
+	uint8_t	_addr_len = 3;	// 24 bits (8 * 3)
 
 	/* User functions */
-	bool begin(unsigned long CLK_Delay = 0);
+	bool	begin(unsigned long CLK_Delay = 0);
 	uint8_t	read8(uint32_t addr);
 	uint16_t	read16(uint32_t addr);
 	uint32_t	read32(uint32_t addr);
@@ -93,6 +93,7 @@ public:
 	bool	eraseBlock32(uint32_t blockNum);
 	bool	eraseBlock64(uint32_t blockNum);
 	uint32_t	getJEDECID(void);
+	uint32_t	getUsedMemory(void);
 	
 	/* Internal functions */
 	bool	eraseCommand(uint8_t command, uint32_t addr);
