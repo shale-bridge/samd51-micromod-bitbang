@@ -178,14 +178,10 @@ uint32_t BitBangFlash::writeBuffer(uint32_t address, uint8_t const* buffer, uint
  */
 uint32_t BitBangFlash::getUsedMemory(void)
 {
-	uint32_t bytes = 0;
-	uint32_t usedMemory;
-	for (uint_fast32_t i = 0; bytes != 0xffffffff; i++)
-	{
-		bytes = read32(i);
-		usedMemory = i;
-	}
-	return usedMemory;
+	uint32_t usedMemory = 0;
+	for (uint32_t bytes = 0; bytes != 0xffffffff; usedMemory++)
+		bytes = read32(usedMemory);
+	return usedMemory - 1;
 }
 
 /* Erase whole chip. NOTE: This can take up to 40 seconds or longer (W25Q128 datasheet) */
