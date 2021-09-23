@@ -8,9 +8,14 @@
  * so SPI is unavailable for use. This is built
  * off of the Adafruit SPIFlash library and "manually"
  * clocks and sends/receives data.
- * 
+ *
  * Estimated clock speeds are around ~1.429MHz. This can be doubled by removing
  * the calls to delayMicroseconds(delayUs). delayUs is 0 by default.
+ *
+ * - SIZE:			16MB (16,777,216)
+ * - 4k SECTORS:	4,096
+ * - 32k BLOCKS:	512
+ * - 64k BLOCKS:	256
  *
  *  ============================================================================
  */
@@ -179,8 +184,8 @@ uint32_t BitBangFlash::writeBuffer(uint32_t address, uint8_t const* buffer, uint
 uint32_t BitBangFlash::getUsedMemory(void)
 {
 	uint32_t usedMemory = 0;
-	for (uint32_t bytes = 0; bytes != 0xffffffff; usedMemory++)
-		bytes = read32(usedMemory);
+	for (uint32_t x = 0; x != 0xffffffff; usedMemory++)
+		x = read32(usedMemory);
 	return usedMemory - 1;
 }
 

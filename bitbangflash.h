@@ -12,6 +12,11 @@
  *
  * Estimated clock speeds are around ~1.429MHz. This can be doubled by removing
  * the calls to delayMicroseconds(delayUs). delayUs is 0 by default.
+ * 
+ * - SIZE:			16MB (16,777,216)
+ * - 4k SECTORS:	4,096
+ * - 32k BLOCKS:	512
+ * - 64k BLOCKS:	256
  *
  *  ============================================================================
  */
