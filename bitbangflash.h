@@ -23,7 +23,6 @@
 
 #include <Arduino.h>
 
-
 enum FlashCommands 
 {
 	SFLASH_CMD_READ = 0x03,      // Single Read
