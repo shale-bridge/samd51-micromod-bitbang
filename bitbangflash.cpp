@@ -27,13 +27,15 @@ bool BitBangFlash::begin(unsigned long CLK_Delay)
 {
 	delayUs = CLK_Delay;	// Only used to slow datalines for debugging
 
-	PORT->Group[PORTA].PINCFG[g_APinDescription[MISO_PIN_].ulPin].reg = (uint8_t)(PORT_PINCFG_INEN | PORT_PINCFG_PULLEN);
+	uint8_t* pinCfg = (uint8_t*)&REG_PORT_PINCFG0;
+	pinCfg[MISO_PORT_] = (uint8_t)(PORT_PINCFG_INEN | PORT_PINCFG_PULLEN);
 	SET_INPUT(PORTA) = MISO_;
 	SET_HIGH(PORTA) = MISO_;	// Enable pullup
 
 	SET_OUTPUT(PORTA) = FCS_ + MOSI_ + CLK_;
 	SET_OUTPUT(PORTB) = WP_ + HOLD_;
 	SET_HIGH(PORTB) = WP_ + HOLD_;
+	SET_LOW(PORTA) = CLK_;
 
 	readCommand(SFLASH_CMD_READ_JEDEC_ID, jedec_id, 4);
 
@@ -61,14 +63,13 @@ void BitBangFlash::waitUntilReady(void)
 		yield();
 }
 
-bool BitBangFlash::readCommand(uint8_t command, uint8_t* response, uint32_t len) 
+void BitBangFlash::readCommand(FlashCommands command, uint8_t* response, uint32_t len) 
 {
 	SET_LOW(PORTA) = FCS_;
 	transfer(command);
 	while (len--)
 		*response++ = transfer(0xFF);
 	SET_HIGH(PORTA) = FCS_;
-	return true;
 }
 
 uint8_t BitBangFlash::readStatus(void) 
@@ -229,7 +230,7 @@ bool BitBangFlash::eraseBlock64(uint32_t blockNumber)
 	return ret;
 }
 
-bool BitBangFlash::eraseCommand(uint8_t command, uint32_t addr) 
+bool BitBangFlash::eraseCommand(FlashCommands command, uint32_t addr) 
 {
 	SET_LOW(PORTA) = FCS_;
 
@@ -248,7 +249,7 @@ bool BitBangFlash::writeEnable(void)
 	return runCommand(SFLASH_CMD_WRITE_ENABLE);
 }
 
-bool BitBangFlash::runCommand(uint8_t command) 
+bool BitBangFlash::runCommand(FlashCommands command) 
 {
 	SET_LOW(PORTA) = FCS_;
 	transfer(command);
@@ -258,25 +259,23 @@ bool BitBangFlash::runCommand(uint8_t command)
 
 uint8_t BitBangFlash::transfer(uint8_t data)
 {
-	for (uint_fast8_t bit = 0; bit < 8; ++bit)
+	for (uint_fast8_t bit = 8; bit > 0; --bit)
 	{
 		((data & 0x80) ? SET_HIGH(PORTA) : SET_LOW(PORTA)) = MOSI_;
 	  
 		data <<= 1;
 		data |= (READ_PORT(PORTA) & MISO_) != 0;
-
-		SET_HIGH(PORTA) = CLK_;
-		delayMicroseconds(delayUs);
-		SET_LOW(PORTA) = CLK_;
-		delayMicroseconds(delayUs);
+		
+		REG_PORT_OUTTGL0 = CLK_;		//4.789MHz, instead of ~1.6MHz
+		REG_PORT_OUTTGL0 = CLK_;
 	}
 	return data;
 } 
 
-void BitBangFlash::transfer(void* buf, size_t count)
+void BitBangFlash::transfer(uint8_t* buf, size_t count)
 {
-	uint8_t* buffer = reinterpret_cast<uint8_t*>(buf);
-	for (size_t i = 0; i < count; ++i) 
+	uint8_t* buffer = buf;
+	for (size_t i = count; i > 0; --i)
 	{
 		*buffer = transfer(*buffer);
 		buffer++;

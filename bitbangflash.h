@@ -77,6 +77,7 @@ enum MemorySize
 #define	WP_		PORT_PB22
 #define HOLD_	PORT_PB23
 #define MISO_PIN_	49
+#define MISO_PORT_	9
 
 class BitBangFlash
 {
@@ -100,20 +101,19 @@ public:
 	uint32_t	getJEDECID(void);
 	uint32_t	getUsedMemory(void);
 	
-	/* Internal functions */
-	bool	eraseCommand(uint8_t command, uint32_t addr);
-	void	waitUntilReady(void);
-	uint8_t	readStatus(void);
-	uint8_t	readStatus2(void);
-	bool	readMemory(uint32_t addr, uint8_t* data, uint32_t len);
-	uint32_t	readBuffer(uint32_t addr, uint8_t* buffer, uint32_t len);
-	void	fillAddress(uint8_t* buffer, uint32_t addr);
-	bool	writeMemory(uint32_t addr, uint8_t const* data, uint32_t len);
-	bool	writeEnable(void);
-	bool	readCommand(uint8_t command, uint8_t* response, uint32_t len);
-	bool	runCommand(uint8_t command);
-	uint8_t	transfer(uint8_t data);
-	void	transfer(void* buffer, size_t count);
-
 private:
+	/* Internal functions */
+	inline bool	eraseCommand(FlashCommands command, uint32_t addr);
+	inline void	waitUntilReady(void);
+	inline uint8_t	readStatus(void);
+	inline uint8_t	readStatus2(void);
+	inline bool	readMemory(uint32_t addr, uint8_t* data, uint32_t len);
+	inline uint32_t	readBuffer(uint32_t addr, uint8_t* buffer, uint32_t len);
+	inline void	fillAddress(uint8_t* buffer, uint32_t addr);
+	inline bool	writeMemory(uint32_t addr, uint8_t const* data, uint32_t len);
+	inline bool	writeEnable(void);
+	inline void	readCommand(FlashCommands command, uint8_t* response, uint32_t len);
+	inline bool	runCommand(FlashCommands command);
+	inline uint8_t	transfer(uint8_t data);
+	inline void	transfer(uint8_t* buffer, size_t count);
 };
